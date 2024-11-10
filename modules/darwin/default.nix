@@ -2,9 +2,10 @@
   config = import ../../config.nix;
 in {
   users.users.${config.username} = {
-    name = "${config.name}";
+    name = "${config.username}";
     home = "/Users/${config.username}";
   };
+
   environment = {
     shells = with pkgs; [
       bash
@@ -15,6 +16,9 @@ in {
       neovim
       awscli
       ripgrep
+      starship
+      openssh
+      alejandra
     ];
   };
   services = {
@@ -32,18 +36,13 @@ in {
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
-
-  environment.systemPackages = [
-    pkgs.neovim
-  ];
 
   homebrew = {
     enable = true;
     taps = [];
     brews = [];
-    casks = [];
+    casks = ["raycast"];
     masApps = {};
     onActivation = {
       cleanup = "zap"; # https://github.com/LnL7/nix-darwin/blob/master/modules/homebrew.nix#L62

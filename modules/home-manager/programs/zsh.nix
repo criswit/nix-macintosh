@@ -4,13 +4,9 @@
   syntaxHighlighting.enable = true;
   shellGlobalAliases = {
     g = "git";
+    nix-rebuild = "darwin-rebuild switch --flake ~/nix-macintosh/#maccitybitch";
   };
   plugins = with pkgs; [
-    {
-      name = "powerlevel10k";
-      src = zsh-powerlevel10k;
-      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    }
     {
       name = "vi-mode";
       src = zsh-vi-mode;
