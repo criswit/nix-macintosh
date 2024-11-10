@@ -17,7 +17,7 @@
     homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # my own damn neovim
-    monkvim = "github:criswit/monkvim";
+    monkvim.url = "github:criswit/monkvim";
   };
   # where stuff goes to
   outputs = inputs @ {
@@ -29,6 +29,7 @@
     ...
   }: let
     config = import ./config.nix;
+    system = "x86_64-darwin";
   in {
     darwinConfigurations = {
       "${config.hostname}" = darwin.lib.darwinSystem {
@@ -45,11 +46,13 @@
           }
           home-manager.darwinModules.home-manager
           {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.${config.username}.imports = [
-              ./modules/home-manager
-            ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${config.username}.imports = [
+                ./modules/home-manager
+              ];
+            };
           }
         ];
       };

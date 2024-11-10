@@ -2,7 +2,7 @@
   config = import ../../config.nix;
 in {
   users.users.${config.username} = {
-    name = "${config.name}";
+    name = "${config.username}";
     home = "/Users/${config.username}";
   };
   environment = {
@@ -15,6 +15,9 @@ in {
       neovim
       awscli
       ripgrep
+      starship
+      openssh
+      alejandra
     ];
   };
   services = {
@@ -34,10 +37,6 @@ in {
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
-
-  environment.systemPackages = [
-    pkgs.neovim
-  ];
 
   homebrew = {
     enable = true;
