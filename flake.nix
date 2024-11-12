@@ -17,7 +17,10 @@
     homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # my own damn neovim
-    monkvim.url = "github:criswit/monkvim";
+    monkvim.url = "github:criswit/nvim";
+    monkvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
   # where stuff goes to
   outputs = inputs @ {
@@ -26,10 +29,10 @@
     darwin,
     monkvim,
     homebrew,
+    vscode-extensions,
     ...
   }: let
     config = import ./config.nix;
-    system = "x86_64-darwin";
   in {
     darwinConfigurations = {
       "${config.hostname}" = darwin.lib.darwinSystem {
@@ -50,6 +53,7 @@
           home-manager.darwinModules.home-manager
           {
             home-manager = {
+              extraSpecialArgs = {inherit monkvim;};
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${config.username}.imports = [

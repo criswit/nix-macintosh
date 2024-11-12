@@ -42,7 +42,7 @@ in {
     enable = true;
     taps = [];
     brews = [];
-    casks = ["raycast"];
+    casks = ["raycast" "font-jetbrains-mono-nerd-font" "wezterm"];
     masApps = {};
     onActivation = {
       cleanup = "zap"; # https://github.com/LnL7/nix-darwin/blob/master/modules/homebrew.nix#L62
